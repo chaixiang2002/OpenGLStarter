@@ -1,0 +1,9 @@
+# build directory
+build/
+
+# platfrom special
+include/
+lib/
+
+# executables
+*.exe

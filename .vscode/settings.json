@@ -1,0 +1,28 @@
+{
+  // depends:
+  // llvm-vs-code-extensions.vscode-clangd
+  // formulahendry.code-runner
+  "clangd.fallbackFlags": [
+    "-I./include",
+    "-L./lib",
+    "-I../include",
+    "-L../lib",
+    "-I../../include",
+    "-L../../lib"
+  ],
+  "code-runner.clearPreviousOutput": true,
+  "code-runner.executorMap": {
+    "cpp": "g++ -pipe -g -o main.exe *.cpp -I./include -L./lib -I../include -L../lib -I../../include -L../../lib -lassimp -ldl -lglad -lglfw3 -lpthread -lz ||"
+  },
+  "code-runner.fileDirectoryAsCwd": true,
+  "code-runner.ignoreSelection": true,
+  "code-runner.runInTerminal": true,
+  "code-runner.saveAllFilesBeforeRun": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "editor.mouseWheelZoom": true,
+  "editor.semanticHighlighting.enabled": true,
+  "editor.tabSize": 2,
+}

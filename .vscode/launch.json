@@ -1,0 +1,15 @@
+{
+  // depends:
+  // vadimcn.vscode-lldb
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug",
+      "program": "${fileDirname}/main.exe",
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
