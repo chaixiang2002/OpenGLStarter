@@ -33,4 +33,6 @@ int main() {
   /*  VIEWport  */
   //  3.tell OpenGL the date and coordinates of window,configure the Dimension
   //  of window
+  glViewport(0, 0, 800, 600); //  (0,0) set the coordinates in the lower right
+                              //  corner of the window
 }
