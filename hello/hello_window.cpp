@@ -1,5 +1,7 @@
-#include <GLFW/glfw3.h>
 #include <glad/glad.h>
+
+#include <GLFW/glfw3.h>
+
 #include <iostream>
 
 int main() {
@@ -11,7 +13,7 @@ int main() {
 
   /*  1.creat A window object   */
   GLFWwindow *window = glfwCreateWindow(
-      800, 600, "CX's_window", NULL,
+      800, 600, "CX_win", NULL,
       NULL); // width ,height,window's name,Don't worry the rest parameters
 
   if (window == NULL) {
@@ -35,4 +37,31 @@ int main() {
   //  of window
   glViewport(0, 0, 800, 600); //  (0,0) set the coordinates in the lower right
                               //  corner of the window
+                              //(800,600)is the width and height of window
+
+  // 3.Callback Function   Let the user adjust the window
+  void framebuffer_size_callback(
+      GLFWwindow * window, int width,
+      int height); // GLFWwindow is first parameter,width and height is the
+                   // parameter new window
+
+  /*    needed sign up this Function,tell GLFW that we call this function when
+   we want to adjust the size of window */
+  glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+  // 4.Get engine ready
+  while (!glfwWindowShouldClose(
+      window)) {             // Always check to see if you quit this window
+    glfwSwapBuffers(window); // output color
+    glfwPollEvents(); // Check for new operations, and call the corresponding
+                      // function
+  }
+  //  Double Buffer?????
+
+  // 5.Delete all---->glfwTerminate
+  glfwTerminate();
+  return 0;
+}
+void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
+  glViewport(0, 0, width, height);
 }
