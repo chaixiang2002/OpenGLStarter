@@ -15,7 +15,6 @@ int main() {
   GLFWwindow *window = glfwCreateWindow(
       800, 600, "CX_win", NULL,
       NULL); // width ,height,window's name,Don't worry the rest parameters
-
   if (window == NULL) {
     std::cout << "Failed to create GLfw window" << std::endl;
     glfwTerminate();
@@ -48,10 +47,15 @@ int main() {
   /*    needed sign up this Function,tell GLFW that we call this function when
    we want to adjust the size of window */
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
+  void processInput(GLFWwindow * window);
   // 4.Get engine ready
   while (!glfwWindowShouldClose(
-      window)) {             // Always check to see if you quit this window
+      window)) { /* Always check to see if you quit this window */
+    processInput(window);
+
+    glad_glClearColor(0.2f, 0.3f, 0.3f, 1.0f); // fit full () color
+    glad_glClear(GL_COLOR_BUFFER_BIT);         // claer color
+
     glfwSwapBuffers(window); // output color
     glfwPollEvents(); // Check for new operations, and call the corresponding
                       // function
@@ -62,6 +66,13 @@ int main() {
   glfwTerminate();
   return 0;
 }
+
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
   glViewport(0, 0, width, height);
+}
+
+void processInput(GLFWwindow *window) {
+  if (glfwGetKey(window, GLFW_KEY_ESCAPE) ==
+      GLFW_PRESS)                           // close the windowWhen Press ESC
+    glfwSetWindowShouldClose(window, true); // close the window
 }
