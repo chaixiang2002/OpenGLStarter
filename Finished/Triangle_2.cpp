@@ -8,9 +8,39 @@
 //  传递3个3D坐标作为图形渲染管线的输入，表示一个三角形，这数组叫做顶点数据VertexData
 
 //  1,顶点输入
+
+// x,y,z
+/* -0.5,  -0.5f, 0.0f, //
+0.5f,  -0.5f, 0.0f, //
+0.0f,  0.5f,  0.0f, //
+0.5f,  -0.5f, 0.0f, // 右下角
+-0.5f, -0.5f, 0.0f, // 左下角
+-0.5f, 0.5f,  0.0f  // 左上角
+*/
+
+//索引缓冲对象(Element Buffer Object
 float vertices[] = {
-    // x,y,z
-    -0.5, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f};
+    0.5f,  0.5f,  0.0f,  //
+    0.5f,  -0.5f, 0.0f,  //
+    -0.5f, -0.5f, -0.5f, //
+    -0.5f, 0.5f,  0.0f   //
+};
+
+unsigned int inddices[] = {
+    // 注意索引从0开始!
+    0, 1, 3, //
+    1, 2, 3  //
+
+};
+
+//创建索引缓冲对象：
+unsigned int EBO;
+glad_glGenBuffers(1, &EBO);
+
+glad_glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); //先绑定EBO
+// glBufferData把索引复制到缓冲
+glad_glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), GL_STATIC_DRAW);
+
 //  2,使用glGenBuffers函数和一个缓冲ID生成一个VBO对象
 unsigned int VBO;
 glGenBuffers(1, &VBO);
