@@ -135,27 +135,26 @@ int main() {
   // (顶点属性)vertex attributes
   //-------------------------------------------------------------------
   float vertices[] = {
-      0.7f,  0.0f,
-      0.0f, // 1
-      0.5f,  0.5f,
-      0.0f, // 2
-      0.0f,  0.7f,
-      0.0f, // 3
-      -0.5f, 0.5f,
-      0.0f, // 4
-      -0.7f, 0.0f,
-      0.0f, // 5
-      -0.5f, -0.5f,
-      0.0f, // 6
-      0.0f,  -0.7f,
-      0.0f, // 7
-      0.5f,  -0.5f,
-      0.0f, // 8
+      0.4f,  0.0f,  0.0f, // 6
+      0.0f,  0.8f,  0.0f, // 7
+      -0.4f, -0.0f, 0.0f, // 8
+
+      0.4f,  0.5f,  0.0f, // 6
+      0.0f,  -0.3f, 0.0f, // 7
+      -0.4f, 0.5f,  0.0f, // 8
+  };
+  unsigned int indices[] = {
+      // note start from 0
+      0, 1,
+      2, //
+      3, 4,
+      5, //
   };
 
-  unsigned int VBO, VAO;
+  unsigned int VBO, VAO, EBO;
   glad_glGenVertexArrays(1, &VAO); //创建一个VAO
   glad_glGenBuffers(1, &VBO);      //创建一个VBO
+  glad_glGenBuffers(1, &EBO);      //创建一个EBO
   //使用glGenBuffers函数和一个缓冲ID生成一个VBO对象
   /* bind the Vertex Array Object first ,then bind and vertex buffer(s),and then
  configure vertex attributes(s)配置顶点属性 */
@@ -171,6 +170,10 @@ int main() {
   // glBufferData函数，它会把之前定义的顶点数据复制到缓冲的内存中
   // OpenGL有很多缓冲对象类型，顶点缓冲对象的缓冲类型是GL_ARRAY_BUFFER
   // GL_STATIC_DRAW ：数据不会或几乎不会改变。
+
+  glad_glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+  glad_glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices,
+                    GL_STATIC_DRAW);
 
   // glVertexAttribPointer函数告诉OpenGL该如何解析顶点数据（应用到逐个顶点属性上）
   glad_glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
@@ -199,7 +202,8 @@ int main() {
   */
     glad_glUseProgram(shaderProgram);
     glad_glBindVertexArray(VAO);
-    glad_glDrawArrays(GL_TRIANGLES, 0, 3);
+    glad_glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    // glad_glDrawArrays(GL_TRIANGLES, 0, 3);
     /* glDrawArrays函数，它使用当前激活的着色器he之前定义的顶点属性配置，
       和VBO的顶点数据（通过VAO间接绑定）来绘制图元。
      */
@@ -216,6 +220,7 @@ int main() {
   }
   glad_glDeleteVertexArrays(1, &VAO);
   glad_glDeleteBuffers(1, &VBO);
+  glad_glDeleteBuffers(1, &EBO);
   glad_glDeleteProgram(shaderProgram);
 
   glfwTerminate();
